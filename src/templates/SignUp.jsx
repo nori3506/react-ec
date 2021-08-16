@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { TextInput } from "../components/Uikit";
+import { TextInput, PrimaryButton } from "../components/Uikit";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -35,47 +35,51 @@ const SignUp = () => {
   return (
     <div className="c-section-container">
       <h2 className="u-text__headline u-text-center">Register</h2>
-      <div className="module-specer--medium">
-        <TextInput
-          fullWidth={true}
-          label={"username"}
-          multiline={false}
-          required={true}
-          rows={1}
-          value={username}
-          type={"text"}
-          onChange={inputUsername}
-        />
-        <TextInput
-          fullWidth={true}
-          label={"email"}
-          multiline={false}
-          required={true}
-          rows={1}
-          value={email}
-          type={"email"}
-          onChange={inputEmail}
-        />
-        <TextInput
-          fullWidth={true}
-          label={"password"}
-          multiline={false}
-          required={true}
-          rows={1}
-          value={password}
-          type={"password"}
-          onChange={inputPassword}
-        />
-        <TextInput
-          fullWidth={true}
-          label={"password confirm"}
-          multiline={false}
-          required={true}
-          rows={1}
-          value={confirmPassword}
-          type={"password"}
-          onChange={inputConfirmPassword}
-        />
+      <div className="module-spacer--medium" />
+      <TextInput
+        fullWidth={true}
+        label={"username"}
+        multiline={false}
+        required={true}
+        rows={1}
+        value={username}
+        type={"text"}
+        onChange={inputUsername}
+      />
+      <TextInput
+        fullWidth={true}
+        label={"email"}
+        multiline={false}
+        required={true}
+        rows={1}
+        value={email}
+        type={"email"}
+        onChange={inputEmail}
+      />
+      <TextInput
+        fullWidth={true}
+        label={"password"}
+        multiline={false}
+        required={true}
+        rows={1}
+        value={password}
+        type={"password"}
+        onChange={inputPassword}
+      />
+      <TextInput
+        fullWidth={true}
+        label={"password confirm"}
+        multiline={false}
+        required={true}
+        rows={1}
+        value={confirmPassword}
+        type={"password"}
+        onChange={inputConfirmPassword}
+      />
+      <div className="module-spacer--medium" />
+
+      <div className="center">
+        <PrimaryButton label={"Register"} onClick={() => console.log("aaa")} />
       </div>
     </div>
   );
