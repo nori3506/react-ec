@@ -1,7 +1,10 @@
-import React, { useCallback, useState } from "react";
+import React, { useState, useCallback } from "react";
+import { useDispatch } from "react-redux";
 import { TextInput, PrimaryButton } from "../components/Uikit";
+import { signUp } from "../reducks/users/operations";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,18 +16,21 @@ const SignUp = () => {
     },
     [setUsername]
   );
+
   const inputEmail = useCallback(
     (event) => {
       setEmail(event.target.value);
     },
     [setEmail]
   );
+
   const inputPassword = useCallback(
     (event) => {
       setPassword(event.target.value);
     },
     [setPassword]
   );
+
   const inputConfirmPassword = useCallback(
     (event) => {
       setConfirmPassword(event.target.value);
@@ -79,7 +85,13 @@ const SignUp = () => {
       <div className="module-spacer--medium" />
 
       <div className="center">
-        <PrimaryButton label={"Register"} onClick={() => console.log("aaa")} />
+        <PrimaryButton
+          label={"アカウントを登録する"}
+          onClick={() =>
+            dispatch(signUp(username, email, password, confirmPassword))
+          }
+        />
+        <div className="module-spacer--small" />
       </div>
     </div>
   );

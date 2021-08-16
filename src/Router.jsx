@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router";
-import { Login, Home, Signup } from "./templates";
-import SignUp from "./templates/SignUp";
+import { Login, Home, SignUp } from "./templates";
 
 export default function Router() {
   return (
