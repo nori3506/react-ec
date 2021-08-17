@@ -12,6 +12,9 @@ export const listenAuthState = () => {
           .get()
           .then((snapshot) => {
             const data = snapshot.data();
+            if (!data) {
+              return;
+            }
             dispatch(
               signInAction({
                 isSignedIn: true,
@@ -45,6 +48,9 @@ export const signIn = (email, password) => {
           .get()
           .then((snapshot) => {
             const data = snapshot.data();
+            if (!data) {
+              return;
+            }
             dispatch(
               signInAction({
                 isSignedIn: true,
