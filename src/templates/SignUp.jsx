@@ -1,3 +1,4 @@
+import { push } from "connected-react-router";
 import React, { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { TextInput, PrimaryButton } from "../components/Uikit";
@@ -92,6 +93,7 @@ const SignUp = () => {
           }
         />
         <div className="module-spacer--small" />
+        <p onClick={() => dispatch(push("/signin"))}>Go to Login</p>
       </div>
     </div>
   );

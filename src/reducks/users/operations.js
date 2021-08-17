@@ -110,3 +110,22 @@ export const signOut = () => {
     });
   };
 };
+
+export const resetPassword = (email) => {
+  return async (dispatch) => {
+    if (email === "") {
+      alert("please input your Email");
+      return false;
+    } else {
+      auth
+        .sendPasswordResetEmail(email)
+        .then(() => {
+          alert("Password reset email was sent to you");
+          dispatch(push("/signin"));
+        })
+        .catch(() => {
+          alert("Failed. please do again");
+        });
+    }
+  };
+};
