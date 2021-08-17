@@ -86,7 +86,7 @@ const SignUp = () => {
 
       <div className="center">
         <PrimaryButton
-          label={"アカウントを登録する"}
+          label={"Register"}
           onClick={() =>
             dispatch(signUp(username, email, password, confirmPassword))
           }
