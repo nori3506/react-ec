@@ -49,6 +49,7 @@ export const signIn = (email, password) => {
           .then((snapshot) => {
             const data = snapshot.data();
             if (!data) {
+              alert("Failed, Try Again with Other Account");
               return;
             }
             dispatch(
