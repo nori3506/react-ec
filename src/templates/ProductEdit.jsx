@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { TextInput } from "../components/Uikit";
+import { TextInput, SelectBox } from "../components/Uikit";
 
 const ProductEdit = () => {
   const [name, setName] = useState("");
@@ -42,6 +42,18 @@ const ProductEdit = () => {
     },
     [setPrice]
   );
+
+  const categories = [
+    { id: "tops", name: "Tops" },
+    { id: "shirt", name: "Shirts" },
+    { id: "pants", name: "Pants" },
+  ];
+
+  const genders = [
+    { id: "all", name: "All" },
+    { id: "male", name: "Man" },
+    { id: "femal", name: "Woman" },
+  ];
   return (
     <section>
       <h2 className="u-text__headline u-text-center">Product Edit</h2>
@@ -67,6 +79,23 @@ const ProductEdit = () => {
           value={description}
           type={"text"}
         />
+
+        <SelectBox
+          label={"Category"}
+          required={true}
+          options={categories}
+          select={setCategory}
+          value={category}
+        />
+
+        <SelectBox
+          label={"Gender"}
+          required={true}
+          options={genders}
+          select={setGender}
+          value={gender}
+        />
+
         <TextInput
           fullWidth={true}
           label={"Price"}
@@ -77,6 +106,11 @@ const ProductEdit = () => {
           value={price}
           type={"number"}
         />
+
+        <div className="module-spacer--dedium" />
+        <div className="center">
+          <PrimaryButton label={"Save"} onClick={} />
+        </div>
       </div>
     </section>
   );
