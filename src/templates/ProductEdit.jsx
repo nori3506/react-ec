@@ -6,11 +6,16 @@ import { saveProduct } from "../reducks/products/operations";
 
 const ProductEdit = () => {
   const dispatch = useDispatch();
+  let id = window.location.pathname.split("/product/edit")[1];
+  if (id !== "") {
+    id = id.split("/")[1];
+  }
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [gender, setGender] = useState("");
   const [price, setPrice] = useState("");
+  const [images, setImages] = useState("");
 
   const inputName = useCallback(
     (event) => {
@@ -62,7 +67,7 @@ const ProductEdit = () => {
     <section>
       <h2 className="u-text__headline u-text-center">Product Edit</h2>
       <div className="c-section-container">
-        <ImageArea />
+        <ImageArea images={images} setImages={setImages} />
         <TextInput
           fullWidth={true}
           label={"Product Name"}
@@ -117,7 +122,9 @@ const ProductEdit = () => {
           <PrimaryButton
             label={"Save"}
             onClick={() =>
-              dispatch(saveProduct(name, description, category, gender, price))
+              dispatch(
+                saveProduct(name, description, category, gender, price, images)
+              )
             }
           />
         </div>
