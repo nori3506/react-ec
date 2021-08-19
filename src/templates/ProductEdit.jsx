@@ -1,7 +1,8 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import ImageArea from "../components/Products/ImageArea";
 import { TextInput, SelectBox, PrimaryButton } from "../components/Uikit";
+import { db } from "../firebase";
 import { saveProduct } from "../reducks/products/operations";
 
 const ProductEdit = () => {
@@ -17,6 +18,25 @@ const ProductEdit = () => {
   const [price, setPrice] = useState("");
   const [images, setImages] = useState("");
 
+  useEffect(() => {
+    if (id !== "") {
+      db.collection("products")
+        .doc(id)
+        .get()
+        .then((snapshot) => {
+          const data = snapshot.data();
+          console.log(data.name);
+
+          setName(data.name);
+          setDescription(data.description);
+          setCategory(data.category);
+          setGender(data.gender);
+          setPrice(data.price);
+          setImages(data.images);
+        });
+    }
+  }, [id]);
+
   const inputName = useCallback(
     (event) => {
       setName(event.target.value);
@@ -29,20 +49,6 @@ const ProductEdit = () => {
       setDescription(event.target.value);
     },
     [setDescription]
-  );
-
-  const inputCategory = useCallback(
-    (event) => {
-      setCategory(event.target.value);
-    },
-    [setCategory]
-  );
-
-  const inputGender = useCallback(
-    (event) => {
-      setGender(event.target.value);
-    },
-    [setGender]
   );
 
   const inputPrice = useCallback(
@@ -123,7 +129,15 @@ const ProductEdit = () => {
             label={"Save"}
             onClick={() =>
               dispatch(
-                saveProduct(name, description, category, gender, price, images)
+                saveProduct(
+                  id,
+                  name,
+                  description,
+                  category,
+                  gender,
+                  price,
+                  images
+                )
               )
             }
           />

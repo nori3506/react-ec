@@ -13,6 +13,7 @@ export default function TextInput(props) {
       falue={props.value}
       type={props.type}
       onChange={props.onChange}
+      value={props.value}
     />
   );
 }

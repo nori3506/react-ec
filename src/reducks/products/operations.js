@@ -4,6 +4,7 @@ import { db, FirebaseTimestamp } from "../../firebase";
 const productRef = db.collection("products");
 
 export const saveProduct = (
+  id,
   name,
   description,
   category,
@@ -23,14 +24,16 @@ export const saveProduct = (
       updated_at: timestamp,
     };
 
-    const ref = productRef.doc();
-    const id = ref.id;
-    data.id = id;
-    data.created_at = timestamp;
+    if (id === "") {
+      const ref = productRef.doc();
+      const id = ref.id;
+      data.id = id;
+      data.created_at = timestamp;
+    }
 
     return productRef
       .doc(id)
-      .set(data)
+      .set(data, { merge: true })
       .then(() => {
         dispatch(push("/"));
       })
