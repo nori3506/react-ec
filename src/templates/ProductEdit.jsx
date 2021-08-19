@@ -1,7 +1,10 @@
 import React, { useCallback, useState } from "react";
-import { TextInput, SelectBox } from "../components/Uikit";
+import { useDispatch } from "react-redux";
+import { TextInput, SelectBox, PrimaryButton } from "../components/Uikit";
+import { saveProduct } from "../reducks/products/operations";
 
 const ProductEdit = () => {
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -109,7 +112,12 @@ const ProductEdit = () => {
 
         <div className="module-spacer--dedium" />
         <div className="center">
-          <PrimaryButton label={"Save"} onClick={} />
+          <PrimaryButton
+            label={"Save"}
+            onClick={() =>
+              dispatch(saveProduct(name, description, category, gender, price))
+            }
+          />
         </div>
       </div>
     </section>
