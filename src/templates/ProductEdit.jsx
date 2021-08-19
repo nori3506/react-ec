@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { SetSizeArea } from "../components/Products";
 import ImageArea from "../components/Products/ImageArea";
 import { TextInput, SelectBox, PrimaryButton } from "../components/Uikit";
 import { db } from "../firebase";
@@ -17,6 +18,7 @@ const ProductEdit = () => {
   const [gender, setGender] = useState("");
   const [price, setPrice] = useState("");
   const [images, setImages] = useState("");
+  const [sizes, setSizes] = useState([]);
 
   useEffect(() => {
     if (id !== "") {
@@ -25,7 +27,6 @@ const ProductEdit = () => {
         .get()
         .then((snapshot) => {
           const data = snapshot.data();
-          console.log(data.name);
 
           setName(data.name);
           setDescription(data.description);
@@ -33,6 +34,7 @@ const ProductEdit = () => {
           setGender(data.gender);
           setPrice(data.price);
           setImages(data.images);
+          setSizes(data.sizes);
         });
     }
   }, [id]);
@@ -124,6 +126,8 @@ const ProductEdit = () => {
         />
 
         <div className="module-spacer--dedium" />
+        <SetSizeArea sizes={sizes} setSizes={setSizes} />
+        <div className="module-spacer--dedium" />
         <div className="center">
           <PrimaryButton
             label={"Save"}
@@ -136,7 +140,8 @@ const ProductEdit = () => {
                   category,
                   gender,
                   price,
-                  images
+                  images,
+                  sizes
                 )
               )
             }
