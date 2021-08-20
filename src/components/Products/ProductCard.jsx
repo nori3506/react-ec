@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { IconButton, MenuItem } from "@material-ui/core";
 import { Menu } from "@material-ui/core";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { deleteProduct } from "../../reducks/products/operations";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -96,7 +97,14 @@ const ProductCard = (props) => {
           >
             Edit
           </MenuItem>
-          <MenuItem>Delete</MenuItem>
+          <MenuItem
+            onClick={() => {
+              dispatch(deleteProduct(props.id));
+              handleClose();
+            }}
+          >
+            Delete
+          </MenuItem>
         </Menu>
       </CardContent>
     </Card>
