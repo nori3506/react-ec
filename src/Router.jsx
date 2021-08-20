@@ -8,6 +8,7 @@ import {
   Reset,
   ProductEdit,
   ProductList,
+  ProductDetail,
 } from "./templates";
 
 export default function Router() {
@@ -18,6 +19,7 @@ export default function Router() {
       <Route exact path={"/signin/reset"} component={Reset} />
       <Auth>
         <Route exact path={"(/)?"} component={ProductList} />
+        <Route exact path={"/product/:id"} component={ProductDetail} />
         <Route path={"/product/edit(/:id)?"} component={ProductEdit} />
       </Auth>
     </Switch>
