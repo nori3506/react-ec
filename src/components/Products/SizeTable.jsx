@@ -36,7 +36,7 @@ const SizeTable = (props) => {
                 <TableCell>残り{size.amount}</TableCell>
                 <TableCell className={classes.iconCell}>
                   {size.amount > 0 ? (
-                    <IconButton onClisk={() => props.addProduct(size.size)}>
+                    <IconButton onClick={() => props.addProduct(size.size)}>
                       <ShoppingCartIcon />
                     </IconButton>
                   ) : (
