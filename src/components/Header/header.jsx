@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getIsSignedIn } from "../../reducks/users/selectors";
 import { push } from "connected-react-router";
+import HeaderMenus from "./HeaderMenus";
 
 const useStyles = makeStyles({
   root: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles({
   toolBar: {
     margin: "0 auto",
     maxWidth: 1024,
-    width: 100,
+    width: "100%",
   },
   iconButtons: {
     margin: "0 0 0 auto",
@@ -37,9 +38,14 @@ const Header = () => {
           <img
             src={Logo}
             alt="Site Logo"
-            width="128px"
+            width="80px"
             onClick={() => dispatch(push("/"))}
           />
+          {isSignedIn && (
+            <div className={classes.iconButtons}>
+              <HeaderMenus />
+            </div>
+          )}
         </Toolbar>
       </AppBar>
     </div>
