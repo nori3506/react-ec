@@ -7,6 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import { useSelector } from "react-redux";
 import { getUserId } from "../../reducks/users/selectors";
 import { db } from "../../firebase";
+import Noimage from "../../assets/img/noimage.png";
 
 const useStyles = makeStyles({
   list: {
@@ -26,7 +27,9 @@ const useStyles = makeStyles({
 const CartListItem = (props) => {
   const classes = useStyles();
   const selector = useSelector((state) => state);
-  const image = props.product.images[0].path;
+  const image = props.product.images[0]
+    ? props.product.images[0].path
+    : Noimage;
   const price = props.product.price.toLocaleString();
   const name = props.product.name;
   const uid = getUserId(selector);
