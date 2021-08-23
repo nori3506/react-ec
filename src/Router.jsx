@@ -10,6 +10,7 @@ import {
   ProductList,
   ProductDetail,
   CartList,
+  OrderConfirm,
 } from "./templates";
 
 export default function Router() {
@@ -23,6 +24,7 @@ export default function Router() {
         <Route exact path={"/product/:id"} component={ProductDetail} />
         <Route path={"/product/edit(/:id)?"} component={ProductEdit} />
         <Route path={"/cart"} component={CartList} />
+        <Route path={"/order/confirm"} component={OrderConfirm} />
       </Auth>
     </Switch>
   );
