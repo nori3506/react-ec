@@ -66,10 +66,10 @@ const ClosableDrawer = (props) => {
     },
     {
       func: selectMenu,
-      label: "Your Order",
+      label: "Order History",
       icon: <HistoryIcon />,
       id: "history",
-      value: "/",
+      value: "/order/history",
     },
     {
       func: selectMenu,
