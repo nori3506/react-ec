@@ -72,7 +72,7 @@ const ProductDetail = (props) => {
           description: product.description,
           gender: product.gender,
           images: product.images,
-          name: product.price,
+          name: product.name,
           productId: product.id,
           quantity: 1,
           size: selectedSize,
