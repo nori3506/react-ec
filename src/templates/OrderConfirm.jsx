@@ -6,6 +6,7 @@ import { getProductsInCart } from "../reducks/users/selectors";
 import List from "@material-ui/core/List";
 import { Divider } from "@material-ui/core";
 import { PrimaryButton, TextDetails } from "../components/Uikit";
+import { orderProduct } from "../reducks/products/operations";
 
 const useStyles = makeStyles((theme) => ({
   detailBox: {
@@ -42,6 +43,10 @@ const OrderConfirm = () => {
 
   const total = subtotal + shippingFee + tax;
 
+  const order = useCallback(() => {
+    dispatch(orderProduct(productsInCart, total));
+  }, [productsInCart, total]);
+
   return (
     <section className="c-section-wrapin">
       <h2 className="u-text__headline">Order Confirmation</h2>
@@ -63,6 +68,7 @@ const OrderConfirm = () => {
           <TextDetails label={"Shipping Fee"} value={shippingFee + " CAD"} />
           <Divider />
           <TextDetails label={"Total"} value={total + " CAD"} />
+          <PrimaryButton label={"Order"} onClick={order} />
         </div>
       </div>
     </section>

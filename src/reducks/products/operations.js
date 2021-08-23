@@ -35,6 +35,82 @@ export const fetchProducts = () => {
   };
 };
 
+export const orderProduct = (productsInCart, amount) => {
+  return async (dispatch, getState) => {
+    const uid = getState().users.uid;
+    const userRef = db.collection("users").doc(uid);
+    const timestamp = FirebaseTimestamp.now();
+
+    let products = [];
+    let soldOutProducts = [];
+    const batch = db.batch();
+
+    for (const product of productsInCart) {
+      const snapshot = await productRef.doc(product.productId).get();
+      const sizes = snapshot.data().sizes;
+
+      const updatedSizes = sizes.map((size) => {
+        if (size.size === product.size) {
+          if (size.amount === 0) {
+            soldOutProducts.push(product.name);
+            return size;
+          }
+          return {
+            size: size.size,
+            amount: size.amount - 1,
+          };
+        } else {
+          return size;
+        }
+      });
+
+      products.push({
+        id: product.productId,
+        images: product.images,
+        name: product.name,
+        price: product.price,
+        size: product.size,
+      });
+
+      batch.update(productRef.doc(product.productId), { sizes: updatedSizes });
+      batch.delete(userRef.collection("cart").doc(product.cartId));
+    }
+    if (soldOutProducts.length > 0) {
+      const errorMessage =
+        soldOutProducts.length > 1
+          ? soldOutProducts.join(" and ")
+          : soldOutProducts[0];
+      alert("Sorry," + errorMessage + "is not available now");
+      return false;
+    } else {
+      batch
+        .commit()
+        .then(() => {
+          const orderRef = userRef.collection("orders").doc();
+          const date = timestamp.toDate();
+          const shippingDate = FirebaseTimestamp.fromDate(
+            new Date(date.setDate(date.getDate() + 3))
+          );
+          const history = {
+            amount: amount,
+            created_at: timestamp,
+            id: orderRef.id,
+            products: products,
+            shipping_date: shippingDate,
+            updated_at: timestamp,
+          };
+
+          orderRef.set(history);
+          dispatch(push("/order/complete"));
+        })
+        .catch(() => {
+          alert("Sorry, your order was not successfully done.");
+          return false;
+        });
+    }
+  };
+};
+
 export const saveProduct = (
   id,
   name,

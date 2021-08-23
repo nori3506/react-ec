@@ -75,7 +75,7 @@ const ProductDetail = (props) => {
           name: product.name,
           price: product.price,
           productId: product.id,
-          quantity: 1,
+          amount: 1,
           size: selectedSize,
         })
       );
