@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/styles";
 import { PrimaryButton } from "../Uikit";
 import { useDispatch } from "react-redux";
 import { push } from "connected-react-router";
+import Noimage from "../../assets/img/noimage.png";
 
 const useStyles = makeStyles({
   list: {
@@ -41,7 +42,7 @@ const OrderdProducts = (props) => {
             <ListItemAvatar>
               <img
                 className={classes.image}
-                src={product.images[0].path}
+                src={product.images[0] ? product.images[0].path : Noimage}
                 alt="product image"
               />
             </ListItemAvatar>

@@ -81,7 +81,7 @@ const ProductEdit = () => {
   const genders = [
     { id: "all", name: "All" },
     { id: "male", name: "Man" },
-    { id: "femal", name: "Woman" },
+    { id: "female", name: "Woman" },
   ];
   return (
     <section>
