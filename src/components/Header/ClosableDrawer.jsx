@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -16,6 +16,7 @@ import { push } from "connected-react-router";
 import { useDispatch } from "react-redux";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { signOut } from "../../reducks/users/operations";
+import { db } from "../../firebase";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -56,6 +57,45 @@ const ClosableDrawer = (props) => {
     props.onClose(event, false);
   };
 
+  const [filters, setFilters] = useState([
+    {
+      func: selectMenu,
+      label: "All",
+      id: "all",
+      value: "/",
+    },
+    {
+      func: selectMenu,
+      label: "Men",
+      id: "male",
+      value: "/?gender=male",
+    },
+    {
+      func: selectMenu,
+      label: "Women",
+      id: "female",
+      value: "/?gender=female",
+    },
+  ]);
+
+  useEffect(() => {
+    db.collection("categories")
+      .orderBy("order", "asc")
+      .get()
+      .then((snapshots) => {
+        const list = [];
+        snapshots.forEach((snapshot) => {
+          const category = snapshot.data();
+          list.push({
+            func: selectMenu,
+            label: category.name,
+            id: category.id,
+            value: `/?category=${category.id}`,
+          });
+        });
+        setFilters((prevState) => [...prevState, ...list]);
+      });
+  }, []);
   const menus = [
     {
       func: selectMenu,
@@ -131,6 +171,17 @@ const ClosableDrawer = (props) => {
             </ListItem>
           </List>
           <Divider />
+          <List>
+            {filters.map((filter) => (
+              <ListItem
+                button
+                key={filter.id}
+                onClick={(e) => filter.func(e, filter.value)}
+              >
+                <ListItemText primary={filter.label} />
+              </ListItem>
+            ))}
+          </List>
         </div>
       </Drawer>
     </nav>
