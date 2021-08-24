@@ -15,6 +15,7 @@ const ProductEdit = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState([]);
   const [gender, setGender] = useState("");
   const [price, setPrice] = useState("");
   const [images, setImages] = useState("");
@@ -60,11 +61,22 @@ const ProductEdit = () => {
     [setPrice]
   );
 
-  const categories = [
-    { id: "tops", name: "Tops" },
-    { id: "shirt", name: "Shirts" },
-    { id: "pants", name: "Pants" },
-  ];
+  useEffect(() => {
+    db.collection("categories")
+      .orderBy("order", "asc")
+      .get()
+      .then((snapshots) => {
+        const list = [];
+        snapshots.forEach((snapshot) => {
+          const data = snapshot.data();
+          list.push({
+            id: data.id,
+            name: data.name,
+          });
+        });
+        setCategories(list);
+      });
+  }, []);
 
   const genders = [
     { id: "all", name: "All" },
